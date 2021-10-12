@@ -364,7 +364,7 @@ class CocoDataset(CustomDataset):
                  logger=None,
                  jsonfile_prefix=None,
                  classwise=False,
-                 proposal_nums=(100, 300, 1000),
+                 proposal_nums=(100, 500, 2000),
                  iou_thrs=None,
                  metric_items=None):
         """Evaluation in COCO protocol.
@@ -462,6 +462,7 @@ class CocoDataset(CustomDataset):
             cocoEval = COCOeval(cocoGt, cocoDt, iou_type)
             cocoEval.params.catIds = self.cat_ids
             cocoEval.params.imgIds = self.img_ids
+            print("Control was here in CBNET setting the maxdets.",proposal_nums)
             cocoEval.params.maxDets = list(proposal_nums)
             cocoEval.params.iouThrs = iou_thrs
             # mapping of cocoEval.stats
@@ -473,11 +474,11 @@ class CocoDataset(CustomDataset):
                 'mAP_m': 4,
                 'mAP_l': 5,
                 'AR@100': 6,
-                'AR@300': 7,
-                'AR@1000': 8,
-                'AR_s@1000': 9,
-                'AR_m@1000': 10,
-                'AR_l@1000': 11
+                'AR@500': 7,
+                'AR@2000': 8,
+                'AR_s@2000': 9,
+                'AR_m@2000': 10,
+                'AR_l@2000': 11
             }
             if metric_items is not None:
                 for metric_item in metric_items:
@@ -492,8 +493,8 @@ class CocoDataset(CustomDataset):
                 cocoEval.summarize()
                 if metric_items is None:
                     metric_items = [
-                        'AR@100', 'AR@300', 'AR@1000', 'AR_s@1000',
-                        'AR_m@1000', 'AR_l@1000'
+                        'AR@100', 'AR@500', 'AR@2000', 'AR_s@2000',
+                        'AR_m@2000', 'AR_l@2000'
                     ]
 
                 for item in metric_items:
