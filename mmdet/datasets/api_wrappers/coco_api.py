@@ -4,7 +4,9 @@ import warnings
 
 import pycocotools
 from pycocotools.coco import COCO as _COCO
-from pycocotools.cocoeval import COCOeval as _COCOeval
+#from pycocotools.cocoeval import COCOeval as _COCOeval
+from fast_coco_eval import COCOeval_fast as _COCOeval
+
 
 
 class COCO(_COCO):
@@ -44,3 +46,4 @@ class COCO(_COCO):
 
 # just for the ease of import
 COCOeval = _COCOeval
+print("Assigning the Faster COCO EVAL!",type(COCOeval))
